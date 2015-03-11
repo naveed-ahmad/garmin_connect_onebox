@@ -1,20 +1,38 @@
-Garmin Connect Onebox
-=====================
+# Garmin Connect Onebox
 
-Garmin connect Onebox for embedding garmin courses
+Onebox to embed Garmin courses and activitie in Discourse. Usefull for runner communities.
 
-Install in Discourse 1.0
+### Supported URL for embeds
+ - https://connect.garmin.com/activity/ID
+ - https://connect.garmin.com/modern/activity/ID
+ - https://connect.garmin.com/modern/course/ID
+ - https://connect.garmin.com/course/ID
 
-```sh
-cd /var/discourse
-./launcher ssh app
-cd /var/www/discourse
-rake plugin:install repo='https://github.com/mrloop/garmin_connect_onebox.git'
-exit
+## Installation
+
+Add the plugin's repo url to your container's app.yml file
+
+```yml
+hooks:
+  after_code:
+    - exec:
+        cd: $home/plugins
+        cmd:
+          - mkdir -p plugins
+          - git clone https://github.com/discourse/docker_manager.git
+          - git clone https://github.com/mrloop/garmin_connect_onebox.git
+```
+* Rebuild the container and restart the application
+
+```
+cd /var/docker
+./launcher rebuild app
 ./launcher restart app
-./launcher ssh app
-cd /var/www/discourse
+```
+
+## Update existing posts
+```
 rake posts:refresh_oneboxes
 ```
 
-Example at http://elgin.cc/t/sun-19th-oct-14-spey-moor/77
+## Screenshots
