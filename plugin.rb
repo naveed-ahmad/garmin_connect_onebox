@@ -30,7 +30,7 @@ module Onebox
       end
 
       def placeholder_html
-        "<div class='garmin-preview-placeholder garmin-#{endpoint}'>Your #{endpoint}'s preview will be show here</div>"
+        "<div class='garmin-preview-placeholder garmin-#{endpoint}'>Your #{endpoint}'s preview will be shown here</div>"
       end
 
       def match
