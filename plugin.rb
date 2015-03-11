@@ -8,21 +8,47 @@ Onebox = Onebox
 module Onebox
   module Engine
     class GarminConnectOnebox
+
       include Engine
-      REGEX = /^https?:\/\/connect\.garmin\.com\/(?:modern\/)?(course|activity)\/(?:embed\/)?([0-9]*)/
-      matches_regexp REGEX
+
+      matches_regexp /^https?:\/\/connect\.garmin\.com\/(?:modern\/)?(course|activity)\/(?:embed\/)?([0-9]*)/
 
       def id
-        @url.match(REGEX)[2]
+        match[2]
       end
 
       def endpoint
-        @url.match(REGEX)[1]
+        match[1]
+      end
+
+      def iframe_height
+        endpoint == 'activity' ? 300 : 600
       end
 
       def to_html
-        "<iframe width='600' height='600' frameborder='0' src='http://connect.garmin.com/#{endpoint}/embed/#{id}'></iframe>"
+        "<iframe width='600' height='#{iframe_height}' frameborder='0' src='http://connect.garmin.com/#{endpoint}/embed/#{id}'></iframe>"
+      end
+
+      def placeholder_html
+        "<div class='garmin-preview-placeholder garmin-#{endpoint}'>Your #{endpoint}'s preview will be show here</div>"
+      end
+
+      def match
+        @match ||= @url.match(@@matcher)
       end
     end
   end
 end
+
+
+
+register_css <<CSS
+ .garmin-preview-placeholder{
+   border: 4px solid #777;
+   border-radius: 3px;
+   width: 600px;
+   height: 300px;
+   text-align: center;
+ }
+
+CSS
