@@ -22,7 +22,7 @@ module Onebox
       end
 
       def iframe_height
-        endpoint == 'activity' ? 300 : 600
+        endpoint == 'activity' ? 280 : 600
       end
 
       def to_html
@@ -43,12 +43,13 @@ end
 
 
 register_css <<CSS
- .garmin-preview-placeholder{
-   border: 4px solid #777;
-   border-radius: 3px;
-   width: 600px;
-   height: 300px;
-   text-align: center;
+.garmin-preview-placeholder{
+    border: 4px solid #777;
+    border-radius: 3px;
+    width: 90%;
+    height: 25px;
+    text-align: center;
+    padding: 20px 0;
  }
 
 CSS
